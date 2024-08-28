@@ -1,109 +1,283 @@
-'use client'
-import NavBar from '@/components/navbar/navbar'
-import { Box, Button, Stack, TextField, Typography , Grid} from '@mui/material'
-import Head from 'next/head'
-import { useState } from 'react'
-import '@/app/CSS/LandingPage.css'
-import InfoCard from '@/components/infoCard/infoCard'
-import DevicesIcon from "@mui/icons-material/Devices";
-import TextsmsIcon from "@mui/icons-material/Textsms";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { useUser } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
+"use client";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { useState, Fragment } from "react";
+import { database } from "../firebase";
+import { collection, deleteDoc, doc, getDoc, setDoc, writeBatch } from "firebase/firestore";
+import { useUser } from "@clerk/nextjs";
+import NavBar from "@/components/navbar/navbar";
+import '@/app/CSS/MovingBackground.css'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function Home() {
-
+  const [messages, setMessages] = useState([
+    {
+      role: "assistant",
+      content: `Hi! I'm the Rate My Professor support assistant. How can I help you today?`,
+    },
+  ]);
   const { isLoaded, isSignedIn, user } = useUser()
-  const router = useRouter()
+  const [message, setMessage] = useState("");
+  const [firstMessage, setFirstMessage] = useState(null);
+  let ranFirst = false;
+  const [likedMessages, setLikes] = useState([])
 
-  const sendPerson = () =>{
-    if(isSignedIn){
-      router.push(`/ChatBot`)
-    }else{
-      router.push("sign-in")
+//   const sendMessage = async () => {
+//     setMessage("");
+//     setMessages((messages) => [
+//       ...messages,
+//       { role: "user", content: message },
+//       { role: "assistant", content: "" },
+//     ]);
+
+//     const response = fetch("/api/chat", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify([...messages, { role: "user", content: message }]),
+//     }).then(async (res) => {
+//       const reader = res.body.getReader();
+//       const decoder = new TextDecoder();
+//       let result = "";
+
+//       return reader.read().then(async function processText({ done, value }) {
+//         if (done) {
+//           return result;
+//         }
+//         const text = decoder.decode(value || new Uint8Array(), {
+//           stream: true,
+//         });
+
+//         if (!ranFirst) {
+//           //Right here, we have to figure out if the professors are saved in the firebase
+//           let lis = []
+//           ranFirst = true;
+//           for(var i = 0; i < JSON.parse(text).data.length; i++){
+//             try {
+//               const userDocRef = doc(collection(database, 'users'), user.id)
+//               const userDocSnap = await getDoc(userDocRef)
+          
+//               const batch = writeBatch(database)
+          
+//               if (userDocSnap.exists()) {
+//                 const userData = userDocSnap.data()
+//                 if (!userData.Professor.includes(JSON.parse(text).data[i].professor)){
+//                   lis.push(false)
+//                 }
+//                 else{
+//                   lis.push(true)
+//                 }
+                
+//               } else {
+//                 batch.set(userDocRef, { Professor: [] })
+//                 lis = [false, false, false]
+//               }
+//             }
+//             catch (error) {
+//               console.error('Error saving professors:', error)
+//               alert('An error occurred while saving professors. Please try again.')
+//             }
+//           }
+//           setLikes(lis)
+//           setFirstMessage(JSON.parse(text));
+//         } else {
+//           setMessages((messages) => {
+//             let lastMessage = messages[messages.length - 1];
+//             let otherMessages = messages.slice(0, messages.length - 1);
+//             return [
+//               ...otherMessages,
+//               { ...lastMessage, content: lastMessage.content + text },
+//             ];
+//           });
+//         }
+
+//         return reader.read().then(processText);
+//       });
+//     });
+//   };
+
+  const saveProfessor = async (professor) => {
+
+    try {
+      const userDocRef = doc(collection(database, 'users'), user.id)
+      const userDocSnap = await getDoc(userDocRef)
+  
+      const batch = writeBatch(database)
+      
+  
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data()
+        if (!userData.Professor.includes(professor['professor'])){
+          const updatedSets = [...(userData.Professor || []), professor['professor'] ]
+          batch.update(userDocRef, { Professor: updatedSets })
+        }
+        
+      } else {
+        batch.set(userDocRef, { Professor: [professor['professor']] })
+      }
+  
+      const setDocRef = doc(collection(userDocRef, 'Professor'), professor['professor'])
+      batch.set(setDocRef, professor)
+  
+      await batch.commit()
+  
+      alert('Professors saved successfully!')
+      //handleCloseDialog()
+
+    } catch (error) {
+      console.error('Error saving professors:', error)
+      alert('An error occurred while saving professors. Please try again.')
     }
-  }
+
+  };
+
+  const removeProfessor = async (professor) => {
+
+    try {
+      const name = professor['professor']
+      const userDocRef = doc(collection(database, 'users'), user.id)
+      const userDocSnap = await getDoc(userDocRef)
+      const deletingDocument = doc(collection(userDocRef, 'Professor'), name)
+
+      //const batch = writeBatch(database)
+
+      await deleteDoc(deletingDocument);
+
+
+
+      // const batch = writeBatch(database)
+      
+  
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data()
+          if (userData.Professor.includes(name)){
+            const index = userData.Professor.indexOf(name);
+            userData.Professor.splice(index, 1);
+            let profs = userData.Professor
+            await setDoc(userDocRef, {Professor: profs})
+          }
+      }
+
+    } catch (error) {
+      console.error('Error saving flashcards:', error)
+      alert('An error occurred while saving flashcards. Please try again.')
+    }
+
+  };
+
+  const handleClick = (prof, index) => {
+    if (!likedMessages[index]) {
+      saveProfessor(prof)
+    } else {
+      removeProfessor(prof);
+    }
+    setLikes((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }))
+  };
+
 
   return (
     <Box>
-      <Head>
-        <title>AStar Rate my Professor</title>
-        <meta name="description" content="AStar Rate my Professor" />
-      </Head>
-
       <NavBar />
-      <Box 
-          width={"100%"}
-          min-height={"100vh"}
-          sx={{ textAlign: "center" }}
-          bgcolor={"black"}  
-          color={"white"}
-          margin={"0px"}
-          padding={10}
+      <Box
+        min-width="100vw"
+        min-height="100vh"
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-around"
+        alignItems="center"
+        
+      >
+        <Stack
+          className="moving-background-chatbot"
+          direction={"column"}
+          width="500px"
+          height="700px"
+          border="1px solid black"
+          p={2}
+          spacing={3}
         >
-          <Typography variant="h4" component="h1" gutterBottom id='generateText'>
-            AStar Fitness
-          </Typography>
-          <Typography variant="h5" component="h2" gutterBottom className="apply">
-            The easiest way to start figuring out what exercise would fit you the most!
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ mt: 2, mr: 2 }}
-            onClick={sendPerson}
+          <Stack
+            direction={"column"}
+            spacing={2}
+            flexGrow={1}
+            overflow="auto"
+            maxHeight="100%"
           >
-            Get Started
-          </Button>
-          <Button
-            variant="outlined"
-            color="inherit"
-            sx={{ mt: 2 }}
-            href="/learnmore"
-          >
-            Learn More
-          </Button>
-        </Box>
-
-        <Box 
-          // sx={{ my: 6 }}
-          sx={
-            {
-              background: 'linear-gradient(70deg, rgba(255,77,0,1) 0%, rgba(255,249,2,1) 100%)',
+            
+            {messages.map((message, index) => (
+              <Box
+                key={index}
+                display="flex"
+                justifyContent={
+                  message.role === "assistant" ? "flex-start" : "flex-end"
+                }
+              >
+                
+                <Box
+                  bgcolor={
+                    message.role === "assistant"
+                      ? "primary.main"
+                      : "secondary.main"
+                  }
+                  color="white"
+                  borderRadius={10}
+                  p={3}
+                >
+                  {message.content.split("\n").map((line, i) => (
+                    <Fragment key={i}>
+                      {line}
+                      <br />
+                    </Fragment>
+                  ))}
+                </Box>
+              </Box>
+            ))}
+          </Stack>
+          <Stack direction={"row"} spacing={2}>
+            <TextField
+              sx={
+                {
+                  backgroundColor: "white!important",
+                  borderRadius: "5px"
+                }
+              }
+              label="Message"
+              fullWidth
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <Button variant="contained" 
+                //onClick={sendMessage}
+            >
+              Send
+            </Button>
+          </Stack>
+        </Stack>
+        {firstMessage && <Box>
+            {firstMessage.data.map((jsonFile, index) => (
+              <Box
+                key={index}
+              >
+                <Typography>
+                  {jsonFile['professor']}
+                </Typography>
+                <Button
+                  onClick={() => handleClick(jsonFile, index)}
+                >
+                  {
+                    likedMessages[index] ? <FavoriteIcon/> : <FavoriteBorderIcon/>
+                  }
+                </Button>
+              </Box>
+            ))
             }
-          }
-          padding={10}  
-          bgcolor={"darkblue"}
-          color={"white"}
-          min-height={"100vh"}
-        >
-          <Typography 
-            variant="h2" 
-            component="h2" 
-            gutterBottom 
-            className="apply">
-            Features
-          </Typography>
-          <Grid container spacing={4}>
-            {/* Feature items */}
-            <InfoCard
-              
-              icon={<TextsmsIcon />}
-              title="Text to Professors in Seconds"
-              subtitle="Ask for your subject and professor and our chat-bot will take it away!"
-            />
-            <InfoCard
-              icon={<DevicesIcon />}
-              title="Easy Access"
-              subtitle="Your saved professors will be able to be accessed from anywhere and be easy to save"
-            />
-            <InfoCard
-              icon={<AutoAwesomeIcon />}
-              title="Harness Artificial Intelligence"
-              subtitle="Watch AI search to find the professor that fits you the best"
-            />
-          </Grid>
-        </Box>
+          </Box>
+        }
       </Box>
+    </Box>
   );
 }
