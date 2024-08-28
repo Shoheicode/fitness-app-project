@@ -52,7 +52,7 @@ export default function NavBar(){
               </Typography> 
             </ListItemButton>
           </ListItem>
-          <ListItem key={"AStar Rate My Professor"} disablePadding>
+          <ListItem key={"Fitness Bot"} disablePadding>
             <ListItemButton href="/FitnessBot">
               <ListItemIcon>
                 <HomeIcon></HomeIcon>
@@ -60,7 +60,7 @@ export default function NavBar(){
               <Typography
                 className="apply"  
               >
-                AStar Rate My Professor
+                Fitness Bot
               </Typography> 
             </ListItemButton>
           </ListItem>
