@@ -58,19 +58,20 @@ export async function POST(req) {
     });
 
     // Process the Pinecone results into a readable string
-    // let jsonArr = [];
+    let jsonArr = [];
     let resultString = "";
     results.matches.forEach((match) => {
-      // jsonArr.push({
-      //   professor: match.metadata.professor,
-      //   stars: match.metadata.stars,
-      //   subject: match.metadata.subject,
-      // });
       const meta = match.metadata;
       let instructions = "";
       meta.instructions.forEach((step) => {
         instructions += step + ' ';
       })
+      jsonArr.push({
+        exerciseName: meta.exerciseName,
+        bodyPart: meta.bodyPart,
+        target: meta.target,
+        instructions: meta.instructions
+      });
       resultString += `
         Returned Results:
         Exercise name: ${meta.exerciseName}
@@ -101,8 +102,8 @@ export async function POST(req) {
       async start(controller) {
         const encoder = new TextEncoder();
         try {
-          // const jsonText = encoder.encode(JSON.stringify({ data: jsonArr }));
-          // controller.enqueue(jsonText);
+          const jsonText = encoder.encode(JSON.stringify({ data: jsonArr }));
+          controller.enqueue(jsonText);
 
           for await (const chunk of completion) {
             const content = chunk.choices[0]?.delta?.content;
