@@ -13,7 +13,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: `Hi! I'm the Rate My Professor support assistant. How can I help you today?`,
+      content: `Hi! I'm the AStar Fitness support assistant. How can I help you today?`,
     },
   ]);
   const { isLoaded, isSignedIn, user } = useUser()
@@ -22,80 +22,80 @@ export default function Home() {
   let ranFirst = false;
   const [likedMessages, setLikes] = useState([])
 
-//   const sendMessage = async () => {
-//     setMessage("");
-//     setMessages((messages) => [
-//       ...messages,
-//       { role: "user", content: message },
-//       { role: "assistant", content: "" },
-//     ]);
+  const sendMessage = async () => {
+    setMessage("");
+    setMessages((messages) => [
+      ...messages,
+      { role: "user", content: message },
+      { role: "assistant", content: "" },
+    ]);
 
-//     const response = fetch("/api/chat", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify([...messages, { role: "user", content: message }]),
-//     }).then(async (res) => {
-//       const reader = res.body.getReader();
-//       const decoder = new TextDecoder();
-//       let result = "";
+    const response = fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify([...messages, { role: "user", content: message }]),
+    }).then(async (res) => {
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let result = "";
 
-//       return reader.read().then(async function processText({ done, value }) {
-//         if (done) {
-//           return result;
-//         }
-//         const text = decoder.decode(value || new Uint8Array(), {
-//           stream: true,
-//         });
+      return reader.read().then(async function processText({ done, value }) {
+        if (done) {
+          return result;
+        }
+        const text = decoder.decode(value || new Uint8Array(), {
+          stream: true,
+        });
 
-//         if (!ranFirst) {
-//           //Right here, we have to figure out if the professors are saved in the firebase
-//           let lis = []
-//           ranFirst = true;
-//           for(var i = 0; i < JSON.parse(text).data.length; i++){
-//             try {
-//               const userDocRef = doc(collection(database, 'users'), user.id)
-//               const userDocSnap = await getDoc(userDocRef)
+        if (!ranFirst) {
+          //Right here, we have to figure out if the professors are saved in the firebase
+          let lis = []
+          ranFirst = true;
+          for(var i = 0; i < JSON.parse(text).data.length; i++){
+            try {
+              const userDocRef = doc(collection(database, 'users'), user.id)
+              const userDocSnap = await getDoc(userDocRef)
           
-//               const batch = writeBatch(database)
+              const batch = writeBatch(database)
           
-//               if (userDocSnap.exists()) {
-//                 const userData = userDocSnap.data()
-//                 if (!userData.Professor.includes(JSON.parse(text).data[i].professor)){
-//                   lis.push(false)
-//                 }
-//                 else{
-//                   lis.push(true)
-//                 }
+              if (userDocSnap.exists()) {
+                const userData = userDocSnap.data()
+                if (!userData.Professor.includes(JSON.parse(text).data[i].professor)){
+                  lis.push(false)
+                }
+                else{
+                  lis.push(true)
+                }
                 
-//               } else {
-//                 batch.set(userDocRef, { Professor: [] })
-//                 lis = [false, false, false]
-//               }
-//             }
-//             catch (error) {
-//               console.error('Error saving professors:', error)
-//               alert('An error occurred while saving professors. Please try again.')
-//             }
-//           }
-//           setLikes(lis)
-//           setFirstMessage(JSON.parse(text));
-//         } else {
-//           setMessages((messages) => {
-//             let lastMessage = messages[messages.length - 1];
-//             let otherMessages = messages.slice(0, messages.length - 1);
-//             return [
-//               ...otherMessages,
-//               { ...lastMessage, content: lastMessage.content + text },
-//             ];
-//           });
-//         }
+              } else {
+                batch.set(userDocRef, { Professor: [] })
+                lis = [false, false, false]
+              }
+            }
+            catch (error) {
+              console.error('Error saving professors:', error)
+              alert('An error occurred while saving professors. Please try again.')
+            }
+          }
+          setLikes(lis)
+          setFirstMessage(JSON.parse(text));
+        } else {
+          setMessages((messages) => {
+            let lastMessage = messages[messages.length - 1];
+            let otherMessages = messages.slice(0, messages.length - 1);
+            return [
+              ...otherMessages,
+              { ...lastMessage, content: lastMessage.content + text },
+            ];
+          });
+        }
 
-//         return reader.read().then(processText);
-//       });
-//     });
-//   };
+        return reader.read().then(processText);
+      });
+    });
+  };
 
   const saveProfessor = async (professor) => {
 

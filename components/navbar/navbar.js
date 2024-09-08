@@ -112,11 +112,11 @@ export default function NavBar(){
                     </SignedIn>
                   </Toolbar>
               </AppBar>
-              <Drawer
+              {/* <Drawer
                     open={open} onClose={toggleDrawer(false)}
                   >
                     {EmptyDrawerList}
-              </Drawer>
+              </Drawer> */}
             </ThemeProvider>;
     }
 
