@@ -66,7 +66,7 @@ export default function NavBar(){
             </ListItemButton>
           </ListItem>
           <ListItem key={"Saved Exercises"} disablePadding>
-            <ListItemButton href="/FitnessBot">
+            <ListItemButton href="/savedExercise">
               <ListItemIcon>
                 <SmartToyIcon></SmartToyIcon>
               </ListItemIcon>
