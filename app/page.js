@@ -89,7 +89,7 @@ export default function Home() {
             <InfoCard
               
               icon={<TextsmsIcon />}
-              title="Text to Professors in Seconds"
+              title="Text to Fitness Exercises in Seconds"
               subtitle="Ask for your subject and professor and our chat-bot will take it away!"
             />
             <InfoCard
