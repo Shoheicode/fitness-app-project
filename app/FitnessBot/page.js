@@ -128,6 +128,7 @@ export default function Home() {
         });
 
         if (!ranFirst) {
+          console.log("I AM RUNNING INIHIHIHol")
           //Right here, we have to figure out if the professors are saved in the firebase
           let lis = [];
           ranFirst = true;
@@ -150,6 +151,7 @@ export default function Home() {
                   lis.push(true);
                 }
               } else {
+                console.log("I AM DOING THE WRITIng")
                 batch.set(userDocRef, { Exercises: [] });
                 lis = [false, false, false];
               }
