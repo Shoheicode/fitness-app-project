@@ -250,7 +250,7 @@ export default function Home() {
 
   const handleClick = (prof, index) => {
     if (!likedMessages[index]) {
-      saveProfessor(prof)
+      saveExercise(prof)
     } else {
       removeProfessor(prof);
     }
