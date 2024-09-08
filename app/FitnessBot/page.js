@@ -200,7 +200,7 @@ export default function Home() {
       }
   
       const setDocRef = doc(collection(userDocRef, 'Professor'), professor['professor'])
-      batch.set(setDocRef, professor)
+      batch.set(setDocRef, exercise)
   
       await batch.commit()
   
