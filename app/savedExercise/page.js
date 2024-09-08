@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation'
 
 export default function Home() {
 
-  const { isLoaded, isSignedIn, user } = useUser()
+  //const { isLoaded, isSignedIn, user } = useUser()
   const router = useRouter()
 
   const sendPerson = () =>{
@@ -24,11 +24,76 @@ export default function Home() {
     }
   }
 
+  const { isLoaded, isSignedIn, user } = useUser()
+    const [exercises, setExercises] = useState([]);
+
+    useEffect(() => {
+      async function getExercises() {
+        if (!user) return
+        
+        const collectReference = collection(doc(collection(database, 'users'), user.id), 'Exercises')
+        const docy = await getDocs(collectReference)
+
+        let list = []
+
+        docy.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          list.push(doc.data())
+        });
+
+        setExercises(list)
+      }
+      getExercises()
+    }, [user])
+
+    const removeExercise = async (exercise) => {
+
+    try {
+      const name = exercise['exerciseName']
+      const userDocRef = doc(collection(database, 'users'), user.id)
+      const userDocSnap = await getDoc(userDocRef)
+      const deletingDocument = doc(collection(userDocRef, 'Exercises'), name)
+
+      //const batch = writeBatch(database)
+
+      await deleteDoc(deletingDocument);
+
+      const collectReference = collection(doc(collection(database, 'users'), user.id), 'Exercises')
+      const docy = await getDocs(collectReference)
+
+      let list = []
+
+      docy.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        list.push(doc.data())
+      });
+
+      setexercises(list)
+  
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data()
+          if (userData.Exercises.includes(name)){
+            const index = userData.Exercises.indexOf(name);
+            userData.Exercises.splice(index, 1);
+            let exer = userData.Exercises
+            
+            await setDoc(userDocRef, {Exercises: exer})
+          }
+      }
+
+    } catch (error) {
+      console.error('Error removing exercises:', error)
+      alert('An error occurred while removing flashcards. Please try again.')
+    }
+
+    };
+
+
   return (
     <Box>
       <Head>
-        <title>AStar Rate my Professor</title>
-        <meta name="description" content="AStar Rate my Professor" />
+        <title>AStar Rate my exercise</title>
+        <meta name="description" content="AStar Rate my exercise" />
       </Head>
 
       <NavBar />
@@ -68,25 +133,7 @@ export default function Home() {
             className="apply">
             Features
           </Typography>
-          <Grid container spacing={4}>
-            {/* Feature items */}
-            <InfoCard
-              
-              icon={<TextsmsIcon />}
-              title="Text to Fitness Exercises in Seconds"
-              subtitle="Ask for your subject and professor and our chat-bot will take it away!"
-            />
-            <InfoCard
-              icon={<DevicesIcon />}
-              title="Easy Access"
-              subtitle="Your saved exercises will be able to be accessed from anywhere and be easy to save"
-            />
-            <InfoCard
-              icon={<AutoAwesomeIcon />}
-              title="Harness Artificial Intelligence"
-              subtitle="Watch AI search to find the exercises that fits you the best"
-            />
-          </Grid>
+          
         </Box>
       </Box>
   );
