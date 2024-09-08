@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation'
 
 export default function ExercisesSaved() {
 
+
   const CardContainer = styled.div`
       width: 600px;
       min-height: 300px;
