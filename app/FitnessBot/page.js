@@ -179,7 +179,7 @@ export default function Home() {
     });
   };
 
-  const saveExercise = async (professor) => {
+  const saveExercise = async (exercise) => {
 
     try {
       const userDocRef = doc(collection(database, 'users'), user.id)
@@ -190,7 +190,7 @@ export default function Home() {
   
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data()
-        if (!userData.Professor.includes(professor['professor'])){
+        if (!userData.Exercises.includes(exercise['exerciseName'])){
           const updatedSets = [...(userData.Professor || []), professor['professor'] ]
           batch.update(userDocRef, { Professor: updatedSets })
         }
