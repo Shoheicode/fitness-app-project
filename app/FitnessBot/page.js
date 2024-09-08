@@ -2,25 +2,35 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useState, Fragment } from "react";
 import { database } from "../firebase";
-import { collection, deleteDoc, doc, getDoc, setDoc, writeBatch } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  setDoc,
+  writeBatch,
+} from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import NavBar from "@/components/navbar/navbar";
-import '@/app/CSS/MovingBackground.css'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import "@/app/CSS/MovingBackground.css";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function Home() {
+  const { isLoaded, isSignedIn, user } = useUser();
+
   const [messages, setMessages] = useState([
     {
       role: "assistant",
       content: `Hi! I'm the AStar Fitness support assistant. How can I help you today?`,
     },
   ]);
-  const { isLoaded, isSignedIn, user } = useUser()
+
   const [message, setMessage] = useState("");
   const [firstMessage, setFirstMessage] = useState(null);
-  let ranFirst = false;
-  const [likedMessages, setLikes] = useState([])
+  const [likedMessages, setLikes] = useState([]);
+
+  let ranFirst = true; // need to change this to false when implementing saving exercises again
 
   const sendMessage = async () => {
     setMessage("");
@@ -51,35 +61,38 @@ export default function Home() {
 
         if (!ranFirst) {
           //Right here, we have to figure out if the professors are saved in the firebase
-          let lis = []
+          let lis = [];
           ranFirst = true;
-          for(var i = 0; i < JSON.parse(text).data.length; i++){
+          for (var i = 0; i < JSON.parse(text).data.length; i++) {
             try {
-              const userDocRef = doc(collection(database, 'users'), user.id)
-              const userDocSnap = await getDoc(userDocRef)
-          
-              const batch = writeBatch(database)
-          
+              const userDocRef = doc(collection(database, "users"), user.id);
+              const userDocSnap = await getDoc(userDocRef);
+
+              const batch = writeBatch(database);
+
               if (userDocSnap.exists()) {
-                const userData = userDocSnap.data()
-                if (!userData.Professor.includes(JSON.parse(text).data[i].professor)){
-                  lis.push(false)
+                const userData = userDocSnap.data();
+                if (
+                  !userData.Professor.includes(
+                    JSON.parse(text).data[i].professor
+                  )
+                ) {
+                  lis.push(false);
+                } else {
+                  lis.push(true);
                 }
-                else{
-                  lis.push(true)
-                }
-                
               } else {
-                batch.set(userDocRef, { Professor: [] })
-                lis = [false, false, false]
+                batch.set(userDocRef, { Professor: [] });
+                lis = [false, false, false];
               }
-            }
-            catch (error) {
-              console.error('Error saving professors:', error)
-              alert('An error occurred while saving professors. Please try again.')
+            } catch (error) {
+              console.error("Error saving professors:", error);
+              alert(
+                "An error occurred while saving professors. Please try again."
+              );
             }
           }
-          setLikes(lis)
+          setLikes(lis);
           setFirstMessage(JSON.parse(text));
         } else {
           setMessages((messages) => {
@@ -98,86 +111,78 @@ export default function Home() {
   };
 
   const saveProfessor = async (professor) => {
-
     try {
-      const userDocRef = doc(collection(database, 'users'), user.id)
-      const userDocSnap = await getDoc(userDocRef)
-  
-      const batch = writeBatch(database)
-      
-  
+      const userDocRef = doc(collection(database, "users"), user.id);
+      const userDocSnap = await getDoc(userDocRef);
+
+      const batch = writeBatch(database);
+
       if (userDocSnap.exists()) {
-        const userData = userDocSnap.data()
-        if (!userData.Professor.includes(professor['professor'])){
-          const updatedSets = [...(userData.Professor || []), professor['professor'] ]
-          batch.update(userDocRef, { Professor: updatedSets })
+        const userData = userDocSnap.data();
+        if (!userData.Professor.includes(professor["professor"])) {
+          const updatedSets = [
+            ...(userData.Professor || []),
+            professor["professor"],
+          ];
+          batch.update(userDocRef, { Professor: updatedSets });
         }
-        
       } else {
-        batch.set(userDocRef, { Professor: [professor['professor']] })
+        batch.set(userDocRef, { Professor: [professor["professor"]] });
       }
-  
-      const setDocRef = doc(collection(userDocRef, 'Professor'), professor['professor'])
-      batch.set(setDocRef, professor)
-  
-      await batch.commit()
-  
-      alert('Professors saved successfully!')
+
+      const setDocRef = doc(
+        collection(userDocRef, "Professor"),
+        professor["professor"]
+      );
+      batch.set(setDocRef, professor);
+
+      await batch.commit();
+
+      alert("Professors saved successfully!");
       //handleCloseDialog()
-
     } catch (error) {
-      console.error('Error saving professors:', error)
-      alert('An error occurred while saving professors. Please try again.')
+      console.error("Error saving professors:", error);
+      alert("An error occurred while saving professors. Please try again.");
     }
-
   };
 
   const removeProfessor = async (professor) => {
-
     try {
-      const name = professor['professor']
-      const userDocRef = doc(collection(database, 'users'), user.id)
-      const userDocSnap = await getDoc(userDocRef)
-      const deletingDocument = doc(collection(userDocRef, 'Professor'), name)
+      const name = professor["professor"];
+      const userDocRef = doc(collection(database, "users"), user.id);
+      const userDocSnap = await getDoc(userDocRef);
+      const deletingDocument = doc(collection(userDocRef, "Professor"), name);
 
       //const batch = writeBatch(database)
-
       await deleteDoc(deletingDocument);
-
-
-
       // const batch = writeBatch(database)
-      
-  
+
       if (userDocSnap.exists()) {
-        const userData = userDocSnap.data()
-          if (userData.Professor.includes(name)){
-            const index = userData.Professor.indexOf(name);
-            userData.Professor.splice(index, 1);
-            let profs = userData.Professor
-            await setDoc(userDocRef, {Professor: profs})
-          }
+        const userData = userDocSnap.data();
+        if (userData.Professor.includes(name)) {
+          const index = userData.Professor.indexOf(name);
+          userData.Professor.splice(index, 1);
+          let profs = userData.Professor;
+          await setDoc(userDocRef, { Professor: profs });
+        }
       }
-
     } catch (error) {
-      console.error('Error saving flashcards:', error)
-      alert('An error occurred while saving flashcards. Please try again.')
+      console.error("Error saving flashcards:", error);
+      alert("An error occurred while saving flashcards. Please try again.");
     }
-
   };
 
   const handleClick = (prof, index) => {
     if (!likedMessages[index]) {
-      saveProfessor(prof)
+      saveProfessor(prof);
     } else {
       removeProfessor(prof);
     }
     setLikes((prev) => ({
       ...prev,
       [index]: !prev[index],
-    }))
+    }));
   };
-
 
   return (
     <Box>
@@ -189,7 +194,6 @@ export default function Home() {
         flexDirection="row"
         justifyContent="space-around"
         alignItems="center"
-        
       >
         <Stack
           className="moving-background-chatbot"
@@ -207,7 +211,6 @@ export default function Home() {
             overflow="auto"
             maxHeight="100%"
           >
-            
             {messages.map((message, index) => (
               <Box
                 key={index}
@@ -216,7 +219,6 @@ export default function Home() {
                   message.role === "assistant" ? "flex-start" : "flex-end"
                 }
               >
-                
                 <Box
                   bgcolor={
                     message.role === "assistant"
@@ -239,44 +241,36 @@ export default function Home() {
           </Stack>
           <Stack direction={"row"} spacing={2}>
             <TextField
-              sx={
-                {
-                  backgroundColor: "white!important",
-                  borderRadius: "5px"
-                }
-              }
+              sx={{
+                backgroundColor: "white!important",
+                borderRadius: "5px",
+              }}
               label="Message"
               fullWidth
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
-            <Button variant="contained" 
-                onClick={sendMessage}
-            >
+            <Button variant="contained" onClick={sendMessage}>
               Send
             </Button>
           </Stack>
         </Stack>
-        {firstMessage && <Box>
+        {firstMessage && (
+          <Box>
             {firstMessage.data.map((jsonFile, index) => (
-              <Box
-                key={index}
-              >
-                <Typography>
-                  {jsonFile['professor']}
-                </Typography>
-                <Button
-                  onClick={() => handleClick(jsonFile, index)}
-                >
-                  {
-                    likedMessages[index] ? <FavoriteIcon/> : <FavoriteBorderIcon/>
-                  }
+              <Box key={index}>
+                <Typography>{jsonFile["professor"]}</Typography>
+                <Button onClick={() => handleClick(jsonFile, index)}>
+                  {likedMessages[index] ? (
+                    <FavoriteIcon />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
                 </Button>
               </Box>
-            ))
-            }
+            ))}
           </Box>
-        }
+        )}
       </Box>
     </Box>
   );

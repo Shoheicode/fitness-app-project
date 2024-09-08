@@ -3,8 +3,8 @@ import { Pinecone } from "@pinecone-database/pinecone";
 import OpenAI from "openai";
 
 const systemPrompt = `
-You are a fitness agent to help people find exerecises that will help them work out, that takes in user questions and answers them.
-For every user question, provide the top 3 exercises you recommend for them to use for their workout
+You are a fitness trainer helping people find exercises that will help them work out, that takes in user questions and answers them.
+For every user question, the top ten relevant exercises for the user's query are returned.
 Use them to answer the question if needed.
 `;
 
@@ -52,27 +52,32 @@ export async function POST(req) {
 
   try {
     const results = await queryWithRetry(index, {
-      topK: 3,
+      topK: 10,
       includeMetadata: true,
       vector: embedding.data[0].embedding,
     });
 
     // Process the Pinecone results into a readable string
-    let jsonArr = [];
+    // let jsonArr = [];
     let resultString = "";
     results.matches.forEach((match) => {
-      jsonArr.push({
-        professor: match.metadata.professor,
-        stars: match.metadata.stars,
-        subject: match.metadata.subject,
-      });
+      // jsonArr.push({
+      //   professor: match.metadata.professor,
+      //   stars: match.metadata.stars,
+      //   subject: match.metadata.subject,
+      // });
+      const meta = match.metadata;
+      let instructions = "";
+      meta.instructions.forEach((step) => {
+        instructions += step + ' ';
+      })
       resultString += `
         Returned Results:
-        Professor: ${match.metadata.professor}
-        Review: ${match.metadata.stars}
-        Subject: ${match.metadata.subject}
-        Stars: ${match.metadata.stars}
-        \n\n`;
+        Exercise name: ${meta.exerciseName}
+        Main body part: ${meta.bodyPart}
+        Targeted muscle: ${meta.target}
+        Instructions: ${meta.instructions}
+        \n`;
     });
 
     // Combine user's question with Pinecone results
@@ -96,8 +101,8 @@ export async function POST(req) {
       async start(controller) {
         const encoder = new TextEncoder();
         try {
-          const jsonText = encoder.encode(JSON.stringify({ data: jsonArr }));
-          controller.enqueue(jsonText);
+          // const jsonText = encoder.encode(JSON.stringify({ data: jsonArr }));
+          // controller.enqueue(jsonText);
 
           for await (const chunk of completion) {
             const content = chunk.choices[0]?.delta?.content;
