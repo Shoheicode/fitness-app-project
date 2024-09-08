@@ -6,12 +6,44 @@ import { useEffect, useState } from 'react'
 import '@/app/CSS/LandingPage.css'
 import InfoCard from '@/components/infoCard/infoCard'
 import DevicesIcon from "@mui/icons-material/Devices";
+import { collection, deleteDoc, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
+import { database } from '../firebase'
 import TextsmsIcon from "@mui/icons-material/Textsms";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { useUser } from '@clerk/nextjs'
+import styled from 'styled-components';
 import { useRouter } from 'next/navigation'
 
-export default function Home() {
+export default function ExercisesSaved() {
+
+  const CardContainer = styled.div`
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        transform: translateY(-10px);
+      }
+    `;
+
+    const CardContent = styled.div`
+      padding: 20px;
+      color: white;
+    `;
+
+    const CardTitle = styled.h2`
+      font-size: 24px;
+      margin-bottom: 10px;
+    `;
+
+    const CardDescription = styled.p`
+      font-size: 16px;
+      line-height: 1.5;
+    `;
 
   //const { isLoaded, isSignedIn, user } = useUser()
   const router = useRouter()
