@@ -39,7 +39,7 @@ export async function POST(req) {
   const pc = new Pinecone({
     apiKey: process.env.PINECONE_API_KEY,
   });
-  const index = pc.index("rag").namespace("ns1");
+  const index = pc.index("exerciserag").namespace("ns1");
   const openai = new OpenAI();
 
   // create embedding for the user's question
@@ -52,7 +52,7 @@ export async function POST(req) {
 
   try {
     const results = await queryWithRetry(index, {
-      topK: 5,
+      topK: 3,
       includeMetadata: true,
       vector: embedding.data[0].embedding,
     });
