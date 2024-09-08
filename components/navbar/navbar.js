@@ -66,14 +66,14 @@ export default function NavBar(){
             </ListItemButton>
           </ListItem>
           <ListItem key={"Fitness Bot"} disablePadding>
-            <ListItemButton href="/FitnessBot">
+            <ListItemButton href="/about">
               <ListItemIcon>
                 <SortIcon></SortIcon>
               </ListItemIcon>
               <Typography
                 className="apply"  
               >
-                Fitness Bot
+                About
               </Typography> 
             </ListItemButton>
           </ListItem>
