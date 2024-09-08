@@ -26,7 +26,7 @@ pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 
 index = pc.Index("exerciserag")
 
-resp = index.delete(delete_all=True, namespace="ns1")
+# resp = index.delete(delete_all=True, namespace="ns1")
 
 
 # Load the review data
@@ -58,11 +58,14 @@ resp = index.delete(delete_all=True, namespace="ns1")
 #             "metadata": {
 #                 "target": exercise["target"],
 #                 "bodyPart": exercise["bodyPart"],
+#                 "exerciseName": exercise["name"],
+#                 "instructions": exercise["instructions"]
 #             },
 #         }
 #     )
 
 # json.dump(processed_data, open("processed.json", "w"))
+
 # Insert the embeddings into the Pinecone index
 with open("processed.json", "r") as f:
     data = json.load(f)
