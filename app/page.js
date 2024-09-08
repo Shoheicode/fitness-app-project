@@ -20,7 +20,7 @@ export default function Home() {
     if(isSignedIn){
       router.push(`/ChatBot`)
     }else{
-      router.push("sign-in")
+      router.push("/sign-in")
     }
   }
 
