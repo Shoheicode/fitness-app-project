@@ -204,10 +204,10 @@ export default function ExercisesSaved() {
                         </CardDescription>
                         {/* <Rating name="read-only" value={parseInt(val["stars"])} readOnly /> */}
                         <CardDescription>
-                        </CardDescription>
-                        {val["instructions"].map(()=>(
-                            <Typography>hihihi</Typography>
+                          {val["instructions"].map((val, index)=>(
+                            <Typography>{(index+1) + ". " + val} </Typography>
                           ))}
+                        </CardDescription>
                       </Stack>
                     </CardContent>
                   </CardContainer>
