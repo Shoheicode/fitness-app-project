@@ -252,7 +252,7 @@ export default function Home() {
     if (!likedMessages[index]) {
       saveExercise(prof)
     } else {
-      removeProfessor(prof);
+      removeExercise(prof);
     }
     setLikes((prev) => ({
       ...prev,
