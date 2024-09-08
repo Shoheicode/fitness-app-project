@@ -42,27 +42,11 @@ export default function Home() {
           padding={10}
         >
           <Typography variant="h4" component="h1" gutterBottom id='generateText'>
-            AStar Fitness
+            AStar Fitness Saved Exercieses
           </Typography>
           <Typography variant="h5" component="h2" gutterBottom className="apply">
-            The easiest way to start figuring out what exercise would fit you the most!
+            We have all your exercises saved right here!
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ mt: 2, mr: 2 }}
-            onClick={sendPerson}
-          >
-            Get Started
-          </Button>
-          <Button
-            variant="outlined"
-            color="inherit"
-            sx={{ mt: 2 }}
-            href="/learnmore"
-          >
-            Learn More
-          </Button>
         </Box>
 
         <Box 
