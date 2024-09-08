@@ -95,12 +95,12 @@ export default function Home() {
             <InfoCard
               icon={<DevicesIcon />}
               title="Easy Access"
-              subtitle="Your saved professors will be able to be accessed from anywhere and be easy to save"
+              subtitle="Your saved exercises will be able to be accessed from anywhere and be easy to save"
             />
             <InfoCard
               icon={<AutoAwesomeIcon />}
               title="Harness Artificial Intelligence"
-              subtitle="Watch AI search to find the professor that fits you the best"
+              subtitle="Watch AI search to find the exercise that fits you the best"
             />
           </Grid>
         </Box>
