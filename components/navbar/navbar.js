@@ -73,7 +73,7 @@ export default function NavBar(){
               <Typography
                 className="apply"  
               >
-                Fitness Bot
+                Saved Exercise
               </Typography> 
             </ListItemButton>
           </ListItem>
