@@ -2,7 +2,7 @@
 import NavBar from '@/components/navbar/navbar'
 import { Box, Button, Stack, TextField, Typography , Grid} from '@mui/material'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '@/app/CSS/LandingPage.css'
 import InfoCard from '@/components/infoCard/infoCard'
 import DevicesIcon from "@mui/icons-material/Devices";
@@ -92,7 +92,7 @@ export default function Home() {
   return (
     <Box>
       <Head>
-        <title>AStar Rate my exercise</title>
+        <title>AStar Exercises</title>
         <meta name="description" content="AStar Rate my exercise" />
       </Head>
 
@@ -133,7 +133,54 @@ export default function Home() {
             className="apply">
             Features
           </Typography>
-          
+          {exercises.length > 0 && <Box>
+          <Grid container spacing={3} sx={{ mt: 4 }}>
+            {exercises.map((val, index) => (
+                <Grid 
+                  item 
+                  xs={12} 
+                  sm={6} 
+                  md={4} 
+                  key={index}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  <CardContainer>
+                    {/* <CardImage src="https://picsum.photos/300/200" alt="Random" /> */}
+                    <CardContent>
+                      <Stack
+                        gap={3}
+                      >
+                        <Box
+                          display={"flex"}
+                          justifyContent={"space-between"}
+                        >
+                          <CardTitle>{val["exerciseName"]}</CardTitle>
+                          <Button
+                            variant='contained'
+                            color='error'
+                            className='buttonColor'
+                            onClick={() => removeProfessor(val)}
+                          >
+                            X
+                          </Button>
+                        </Box>
+                        <CardDescription>
+                          {val["bodyPart"]}
+                        </CardDescription>
+                        {/* <Rating name="read-only" value={parseInt(val["stars"])} readOnly /> */}
+                        <CardDescription>
+                          {val["instructions"]}
+                        </CardDescription>
+                        {/* <CardButton>Learn More</CardButton> */}
+                      </Stack>
+                    </CardContent>
+                  </CardContainer>
+                </Grid>
+            ))}
+          </Grid>
+          </Box>}
         </Box>
       </Box>
   );
