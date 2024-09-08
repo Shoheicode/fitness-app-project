@@ -224,30 +224,28 @@ export default function Home() {
 
   };
 
-  const removeExercise = async (professor) => {
+  const removeExercise = async (exercise) => {
 
     try {
-      const name = professor['professor']
+      const name = exercise['exerciseName']
       const userDocRef = doc(collection(database, 'users'), user.id)
       const userDocSnap = await getDoc(userDocRef)
-      const deletingDocument = doc(collection(userDocRef, 'Professor'), name)
+      const deletingDocument = doc(collection(userDocRef, 'Exercises'), name)
 
       //const batch = writeBatch(database)
 
       await deleteDoc(deletingDocument);
-
-
 
       // const batch = writeBatch(database)
       
   
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data()
-          if (userData.Professor.includes(name)){
-            const index = userData.Professor.indexOf(name);
-            userData.Professor.splice(index, 1);
-            let profs = userData.Professor
-            await setDoc(userDocRef, {Professor: profs})
+          if (userData.Exercises.includes(name)){
+            const index = userData.Exercises.indexOf(name);
+            userData.Exercises.splice(index, 1);
+            let exer = userData.Exercises
+            await setDoc(userDocRef, {Exercises: exer})
           }
       }
 
