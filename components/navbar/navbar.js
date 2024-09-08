@@ -65,6 +65,18 @@ export default function NavBar(){
               </Typography> 
             </ListItemButton>
           </ListItem>
+          <ListItem key={"Fitness Bot"} disablePadding>
+            <ListItemButton href="/FitnessBot">
+              <ListItemIcon>
+                <SortIcon></SortIcon>
+              </ListItemIcon>
+              <Typography
+                className="apply"  
+              >
+                Fitness Bot
+              </Typography> 
+            </ListItemButton>
+          </ListItem>
         </List>
         <Divider />
         <Stack
