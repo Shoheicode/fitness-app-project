@@ -17,8 +17,9 @@ import { useRouter } from 'next/navigation'
 export default function ExercisesSaved() {
 
   const CardContainer = styled.div`
-      width: 300px;
-      height: 300px;
+      width: 600px;
+      min-height: 300px;
+      max-height: 800px;
       background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
       border-radius: 20px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -203,9 +204,10 @@ export default function ExercisesSaved() {
                         </CardDescription>
                         {/* <Rating name="read-only" value={parseInt(val["stars"])} readOnly /> */}
                         <CardDescription>
-                          {val["instructions"]}
+                          {val["instructions"].map((va, index)=>{
+                            {va}
+                          })}
                         </CardDescription>
-                        {/* <CardButton>Learn More</CardButton> */}
                       </Stack>
                     </CardContent>
                   </CardContainer>
