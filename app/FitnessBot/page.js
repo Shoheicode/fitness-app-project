@@ -134,12 +134,16 @@ export default function Home() {
           ranFirst = true;
           for (var i = 0; i < JSON.parse(text).data.length; i++) {
             try {
+              console.log("HIHIHIIHI")
+              
               const userDocRef = doc(collection(database, "users"), user.id);
+              //setDoc(cityRef, { capital: true }, { merge: true });
               const userDocSnap = await getDoc(userDocRef);
 
               const batch = writeBatch(database);
 
               if (userDocSnap.exists()) {
+                console.log("EXISTS")
                 const userData = userDocSnap.data();
                 if (
                   !userData.Exercises.includes(
@@ -152,7 +156,10 @@ export default function Home() {
                 }
               } else {
                 console.log("I AM DOING THE WRITIng")
-                batch.set(userDocRef, { Exercises: [] });
+                await setDoc(doc(database, "users", user.id), {
+                  Exercises: []
+                });
+                //batch.set(userDocRef, { Exercises: [] });
                 lis = [false, false, false];
               }
             } catch (error) {
@@ -193,16 +200,17 @@ export default function Home() {
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data()
         if (!userData.Exercises.includes(exercise['exerciseName'])){
-          const updatedSets = [...(userData.Professor || []), professor['professor'] ]
-          batch.update(userDocRef, { Professor: updatedSets })
+          console.log("HIHIHI AM RUNNING HHOHOHOHO")
+          const updatedSets = [...(userData.Exercises || []), exercise['exerciseName'] ]
+          batch.update(userDocRef, { Exercises: updatedSets })
         }
         
       } else {
-        batch.set(userDocRef, { Professor: [exercise['exerciseName']] })
+        batch.set(userDocRef, { Exercises: [exercise['exerciseName']] })
       }
   
-      const setDocRef = doc(collection(userDocRef, 'Professor'), professor['professor'])
-      batch.set(setDocRef, exercise)
+      const setDocRef = doc(collection(userDocRef, 'Exercises'), exercise['exerciseName'])
+      await setDoc(setDocRef, exercise)
   
       await batch.commit()
   
