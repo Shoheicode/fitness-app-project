@@ -196,7 +196,7 @@ export default function Home() {
         }
         
       } else {
-        batch.set(userDocRef, { Professor: [professor['professor']] })
+        batch.set(userDocRef, { Professor: [exercise['exerciseName']] })
       }
   
       const setDocRef = doc(collection(userDocRef, 'Professor'), professor['professor'])
