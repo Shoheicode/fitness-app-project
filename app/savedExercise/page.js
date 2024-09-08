@@ -42,7 +42,7 @@ export default function Home() {
           padding={10}
         >
           <Typography variant="h4" component="h1" gutterBottom id='generateText'>
-            AStar Fitness Saved Exercieses
+            Saved Exercieses
           </Typography>
           <Typography variant="h5" component="h2" gutterBottom className="apply">
             We have all your exercises saved right here!
