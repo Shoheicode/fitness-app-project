@@ -1,5 +1,12 @@
 "use client";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Input,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState, Fragment } from "react";
 import { database } from "../firebase";
 import {
@@ -22,7 +29,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: `Hi! I'm the AStar Fitness support assistant. How can I help you today?`,
+      content: `Hi! I'm your AStar Fitness assistant. How can I help you today?`,
     },
   ]);
 
@@ -32,7 +39,9 @@ export default function Home() {
 
   let ranFirst = true; // need to change this to false when implementing saving exercises again
 
-  const sendMessage = async () => {
+  const sendMessage = async (e) => {
+    e.preventDefault();
+
     setMessage("");
     setMessages((messages) => [
       ...messages,
@@ -239,21 +248,27 @@ export default function Home() {
               </Box>
             ))}
           </Stack>
-          <Stack direction={"row"} spacing={2}>
-            <TextField
-              sx={{
-                backgroundColor: "white!important",
-                borderRadius: "5px",
-              }}
-              label="Message"
-              fullWidth
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <Button variant="contained" onClick={sendMessage}>
-              Send
-            </Button>
-          </Stack>
+          <form onSubmit={sendMessage}>
+            <Stack direction={"row"} spacing={2}>
+              <Input
+                sx={{
+                  backgroundColor: "white!important",
+                  borderRadius: "5px",
+                  padding: "8px",
+                  paddingLeft: "12px",
+                }}
+                placeholder="Type your message here..."
+                label="Message"
+                fullWidth
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+
+              <Button type="submit" variant="contained">
+                Send
+              </Button>
+            </Stack>
+          </form>
         </Stack>
         {firstMessage && (
           <Box>
