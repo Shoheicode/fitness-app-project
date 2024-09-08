@@ -214,7 +214,7 @@ export default function Home() {
 
   };
 
-  const removeProfessor = async (professor) => {
+  const removeExercise = async (professor) => {
 
     try {
       const name = professor['professor']
