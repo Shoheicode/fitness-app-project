@@ -41,7 +41,7 @@ export default function NavBar(){
     const DrawerList = (
       <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
         <List>
-        <ListItem key={"AStar Rate My Professor"} disablePadding>
+        <ListItem key={"AStar Fitness"} disablePadding>
             <ListItemButton href="/">
               <ListItemIcon>
                 <HomeIcon></HomeIcon>
@@ -49,7 +49,7 @@ export default function NavBar(){
               <Typography
                 className="apply"  
               >
-                AStar Rate My Professor
+                AStar Fitness
               </Typography> 
             </ListItemButton>
           </ListItem>
