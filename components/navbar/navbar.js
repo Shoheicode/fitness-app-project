@@ -104,7 +104,13 @@ export default function NavBar(){
       console.log("HIHIHII")
       return <ThemeProvider theme={darkTheme}>
                 <AppBar position="static" color={"secondary"}>
-                  <Toolbar>
+                  <Toolbar
+                    style={
+                      {
+                        width: "100%"
+                      }
+                    }
+                  >
                     <Link href={"/"} style={{ flexGrow: 1 }}>
                       <Typography variant="h6">
                         AStar Rate my Professor
@@ -134,7 +140,13 @@ export default function NavBar(){
 
     return <ThemeProvider theme={darkTheme}>
         <AppBar position="static" color={"secondary"}>
-          <Toolbar>
+          <Toolbar
+            style={
+              {
+                width: "100%"
+              }
+            }
+          >
             <IconButton
                 size="large"
                 edge="start"
