@@ -179,7 +179,7 @@ export default function Home() {
     });
   };
 
-  const saveProfessor = async (professor) => {
+  const saveExercise = async (professor) => {
 
     try {
       const userDocRef = doc(collection(database, 'users'), user.id)
