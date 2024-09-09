@@ -9,6 +9,7 @@ import fireIcon from "@/public/flame.svg";
 import "./flameIcon.css";
 
 const popperStyles = {
+color:"white",
   marginTop: 1.5,
   border: 1,
   p: 1,
