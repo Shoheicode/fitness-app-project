@@ -104,6 +104,7 @@ export async function POST(req) {
         try {
           const jsonText = encoder.encode(JSON.stringify({ data: jsonArr }));
           controller.enqueue(jsonText);
+          controller.enqueue(" ")
 
           for await (const chunk of completion) {
             const content = chunk.choices[0]?.delta?.content;
