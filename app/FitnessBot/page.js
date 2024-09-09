@@ -305,16 +305,6 @@ const CardDescription = styled.p`
               <Box
                 key={index}
               >
-                <Typography>
-                  {jsonFile['exerciseName']}
-                </Typography>
-                <Button
-                  onClick={() => handleClick(jsonFile, index)}
-                >
-                  {
-                    likedMessages[index] ? <FavoriteIcon/> : <FavoriteBorderIcon/>
-                  }
-                </Button>
                 <Grid 
                   item 
                   xs={12} 
