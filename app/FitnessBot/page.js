@@ -104,7 +104,7 @@ const CardDescription = styled.p`
                 const userData = userDocSnap.data();
                 if (
                   !userData.Exercises.includes(
-                    JSON.parse(text).data[i].exerciseName
+                    JSON.parse(string).data[i].exerciseName
                   )
                 ) {
                   lis.push(false);
@@ -126,8 +126,8 @@ const CardDescription = styled.p`
             }
           }
           setLikes(lis);
-          setFirstMessage(JSON.parse(text));
-          console.log(JSON.parse(text));
+          setFirstMessage(JSON.parse(string));
+          console.log(JSON.parse(string));
         } else {
           setMessages((messages) => {
             let lastMessage = messages[messages.length - 1];
