@@ -21,24 +21,6 @@ export default function FlameIcon() {
   const { user, isSignedIn } = useUser();
   const [streakCount, setStreakCount] = useState(0);
 
-//   useEffect(() => {
-//     async function fetchAndUpdateStreak() {
-//       const response = fetch("/api/update", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           userID: user.id,
-//           offset: new Date().getTimezoneOffset(),
-//         }),
-//       })
-//         .then((res) => console.log(res))
-//         .then((data) => setStreakCount(data.streak))
-//         .catch((error) => console.log(error));
-//     }
-//     fetchAndUpdateStreak();
-//   }, [user.id]);
     useEffect(()=>{
         async function getData(){
             if(!isSignedIn){
