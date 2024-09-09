@@ -3,7 +3,7 @@ import { collection, doc, getDoc, writeBatch } from "firebase/firestore";
 import { database } from "@/app/firebase";
 
 export async function POST(req) {
-    console.log("I AM RUNNING POST")
+    //console.log("I AM RUNNING POST")
   const data = await req.json();
   const userID = data.userID;
 

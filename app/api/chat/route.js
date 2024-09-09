@@ -34,6 +34,7 @@ async function queryWithRetry(index, queryParams, retries = 0) {
 // Takes user query, combines it with a vector search in Pinecone, and makes the query to OpenAI
 // Provides context-aware responses
 export async function POST(req) {
+  console.log("HIHIHIH HEYOOO(")
   const data = await req.json();
 
   const pc = new Pinecone({
