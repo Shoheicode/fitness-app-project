@@ -86,6 +86,7 @@ const CardDescription = styled.p`
           console.log("I AM RUNNING INIHIHIHol")
           //Right here, we have to figure out if the professors are saved in the firebase
           let lis = [];
+          console.log(text)
           ranFirst = true;
           for (var i = 0; i < JSON.parse(text).data.length; i++) {
             try {
