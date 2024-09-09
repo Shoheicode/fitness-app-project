@@ -191,7 +191,7 @@ export default function NavBar(){
               </Button>
             </SignedOut>
             <SignedIn>
-              
+              <FlameIcon />
               <UserButton />
             </SignedIn>
           </Toolbar>
