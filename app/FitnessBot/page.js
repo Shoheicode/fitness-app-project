@@ -131,6 +131,10 @@ const CardDescription = styled.p`
           setFirstMessage(JSON.parse(string));
           console.log(JSON.parse(string));
         } else {
+          if(text.indexOf("{" != -1)){
+            let string = text.substring(text.lastIndexOf("}")+1, text.length)
+            setMessages(string);
+          }
           setMessages((messages) => {
             let lastMessage = messages[messages.length - 1];
             let otherMessages = messages.slice(0, messages.length - 1);
