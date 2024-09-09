@@ -10,7 +10,7 @@ export async function POST(req) {
   const userDocSnap = await getDoc(userDocRef);
   const batch = writeBatch(database);
 
-  let streak = -1;
+  let streak = 0;
   if (userDocSnap.exists()) {
     const userData = userDocSnap.data();
     const lastLoggedIn = new Date(userData.lastLoggedIn);
