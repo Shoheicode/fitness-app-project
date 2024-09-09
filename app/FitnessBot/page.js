@@ -26,7 +26,6 @@ export default function Home() {
   }
 `;
 
-
 const CardContent = styled.div`
   padding: 20px;
   color: white;
