@@ -4,7 +4,8 @@ import { useUser } from "@clerk/nextjs";
 import Box from "@mui/material/Box";
 import Popper from "@mui/material/Popper";
 import Fade from "@mui/material/Fade";
-
+import { collection, doc, getDoc, writeBatch } from "firebase/firestore";
+import { database } from "@/app/firebase";
 import fireIcon from "@/public/flame.svg";
 import "./flameIcon.css";
 
@@ -45,7 +46,7 @@ export default function FlameIcon() {
             }
             const userID = user.id;
         
-            const userDocRef = doc(collection(database, "users"), userID);
+            const userDocRef = doc(collection(database, "login"), userID);
             const userDocSnap = await getDoc(userDocRef);
             const batch = writeBatch(database);
         
@@ -81,12 +82,12 @@ export default function FlameIcon() {
                 }
         
                 batch.update(userDocRef, {
-                streak: streak,
-                lastLoggedIn: new Date().toUTCString(),
+                    streak: streak,
+                    lastLoggedIn: new Date().toUTCString(),
                 });
             } else {
                 batch.set(userDocRef, {
-                streak: 0,
+                streak: 1,
                 lastLoggedIn: new Date().toUTCString(),
                 });
             }
