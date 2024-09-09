@@ -17,6 +17,7 @@ color:"white",
   bgcolor: "background.paper",
 };
 
+
 export default function FlameIcon() {
   const { user, isSignedIn } = useUser();
   const [streakCount, setStreakCount] = useState(0);
