@@ -126,7 +126,7 @@ export default function NavBar(){
                   >
                     <Link href={"/"} style={{ flexGrow: 1 }}>
                       <Typography variant="h6">
-                        AStar Rate my Professor
+                        AStar Fitness
                       </Typography>
                     </Link>
                     <SignedOut>
