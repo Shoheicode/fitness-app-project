@@ -87,6 +87,7 @@ const CardDescription = styled.p`
           console.log(text)
           let string = text.substring(0, text.lastIndexOf("}"))
           //Right here, we have to figure out if the professors are saved in the firebase
+          console.log("I AM THIS STRING:")
           console.log(string)
           let lis = [];
           ranFirst = true;
