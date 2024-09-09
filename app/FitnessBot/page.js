@@ -85,10 +85,11 @@ const CardDescription = styled.p`
         if (!ranFirst) {
           console.log("I AM RUNNING INIHIHIHol")
           console.log(text)
+          let string = text.substring(0, text.lastIndexOf("}"))
           //Right here, we have to figure out if the professors are saved in the firebase
           let lis = [];
           ranFirst = true;
-          for (var i = 0; i < JSON.parse(text).data.length; i++) {
+          for (var i = 0; i < JSON.parse(string).data.length; i++) {
             try {
               console.log("HIHIHIIHI")
               
