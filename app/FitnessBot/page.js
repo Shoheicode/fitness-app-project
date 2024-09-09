@@ -84,6 +84,7 @@ const CardDescription = styled.p`
 
         if (!ranFirst) {
           console.log("I AM RUNNING INIHIHIHol")
+          console.log(text)
           //Right here, we have to figure out if the professors are saved in the firebase
           let lis = [];
           ranFirst = true;
