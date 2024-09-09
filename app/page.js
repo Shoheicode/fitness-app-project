@@ -18,7 +18,7 @@ export default function Home() {
 
   const sendPerson = () =>{
     if(isSignedIn){
-      router.push(`/ChatBot`)
+      router.push(`/FitnessBot`)
     }else{
       router.push("/sign-in")
     }
@@ -59,7 +59,7 @@ export default function Home() {
             variant="outlined"
             color="inherit"
             sx={{ mt: 2 }}
-            href="/learnmore"
+            href="/about"
           >
             Learn More
           </Button>
