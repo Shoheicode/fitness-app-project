@@ -130,14 +130,11 @@ const CardDescription = styled.p`
           setLikes(lis);
           setFirstMessage(JSON.parse(string));
           console.log(JSON.parse(string));
+          let stri = text.substring(text.lastIndexOf("}")+1, text.length)
+          setMessages(stri);
+          console.log(stri)
+          done = true;
         } else {
-          if(text.indexOf("{" != -1)){
-            let string = text.substring(text.lastIndexOf("}")+1, text.length)
-            setMessages(string);
-            console.log(string)
-            done = true;
-
-          }
           setMessages((messages) => {
             let lastMessage = messages[messages.length - 1];
             let otherMessages = messages.slice(0, messages.length - 1);
