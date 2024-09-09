@@ -273,9 +273,10 @@ export default function Home() {
         min-width="100vw"
         min-height="100vh"
         display="flex"
-        flexDirection="row"
+        flexDirection="column"
         justifyContent="space-around"
         alignItems="center"
+        paddingTop={10}
         
       >
         <Stack
