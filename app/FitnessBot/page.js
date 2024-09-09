@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import { useState, Fragment } from "react";
 import { database } from "../firebase";
 import { collection, deleteDoc, doc, getDoc, setDoc, writeBatch } from "firebase/firestore";
@@ -8,8 +8,39 @@ import NavBar from "@/components/navbar/navbar";
 import '@/app/CSS/MovingBackground.css'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import styled from 'styled-components';
 
 export default function Home() {
+
+  const CardContainer = styled.div`
+  width: 300px;
+  height: 150px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+`;
+
+const CardContent = styled.div`
+  padding: 20px;
+  color: white;
+`;
+
+const CardTitle = styled.h2`
+  font-size: 24px;
+  margin-bottom: 10px;
+`;
+
+const CardDescription = styled.p`
+  font-size: 16px;
+  line-height: 1.5;
+`;
+
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -21,82 +52,6 @@ export default function Home() {
   const [firstMessage, setFirstMessage] = useState(null);
   let ranFirst = false;
   const [likedMessages, setLikes] = useState([])
-
-  // const sendMessage = async () => {
-  //   setMessage("");
-  //   setMessages((messages) => [
-  //     ...messages,
-  //     { role: "user", content: message },
-  //     { role: "assistant", content: "" },
-  //   ]);
-
-  //   const response = fetch("/api/chat", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify([...messages, { role: "user", content: message }]),
-  //   }).then(async (res) => {
-  //     const reader = res.body.getReader();
-  //     const decoder = new TextDecoder();
-  //     let result = "";
-
-  //     return reader.read().then(async function processText({ done, value }) {
-  //       if (done) {
-  //         return result;
-  //       }
-  //       const text = decoder.decode(value || new Uint8Array(), {
-  //         stream: true,
-  //       });
-
-  //       if (!ranFirst) {
-  //         //Right here, we have to figure out if the professors are saved in the firebase
-  //         let lis = []
-  //         ranFirst = true;
-  //         for(var i = 0; i < JSON.parse(text).data.length; i++){
-  //           try {
-  //             const userDocRef = doc(collection(database, 'users'), user.id)
-  //             const userDocSnap = await getDoc(userDocRef)
-          
-  //             const batch = writeBatch(database)
-          
-  //             if (userDocSnap.exists()) {
-  //               const userData = userDocSnap.data()
-  //               if (!userData.Professor.includes(JSON.parse(text).data[i].professor)){
-  //                 lis.push(false)
-  //               }
-  //               else{
-  //                 lis.push(true)
-  //               }
-                
-  //             } else {
-  //               batch.set(userDocRef, { Professor: [] })
-  //               lis = [false, false, false]
-  //             }
-  //           }
-  //           catch (error) {
-  //             console.error('Error saving professors:', error)
-  //             alert('An error occurred while saving professors. Please try again.')
-  //           }
-  //         }
-  //         setLikes(lis)
-  //         setFirstMessage(JSON.parse(text));
-  //       } else {
-  //         setMessages((messages) => {
-  //           let lastMessage = messages[messages.length - 1];
-  //           let otherMessages = messages.slice(0, messages.length - 1);
-  //           return [
-  //             ...otherMessages,
-  //             { ...lastMessage, content: lastMessage.content + text },
-  //           ];
-  //         });
-  //       }
-
-  //       return reader.read().then(processText);
-  //     });
-  //   });
-  // };
-  //ranFirst = true;
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -273,7 +228,7 @@ export default function Home() {
         min-width="100vw"
         min-height="100vh"
         display="flex"
-        flexDirection="column"
+        flexDirection="row"
         justifyContent="space-around"
         alignItems="center"
         paddingTop={10}
@@ -360,6 +315,44 @@ export default function Home() {
                     likedMessages[index] ? <FavoriteIcon/> : <FavoriteBorderIcon/>
                   }
                 </Button>
+                <Grid 
+                  item 
+                  xs={12} 
+                  sm={6} 
+                  md={4} 
+                  key={index}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  <CardContainer>
+                    {/* <CardImage src="https://picsum.photos/300/200" alt="Random" /> */}
+                    <CardContent>
+                      <Stack
+                        gap={3}
+                      >
+                        <Box
+                          display={"flex"}
+                          justifyContent={"space-between"}
+                        >
+                          <CardTitle>{jsonFile["exerciseName"]}</CardTitle>
+                          <Button
+                          onClick={() => handleClick(jsonFile, index)}
+                          >
+                            {
+                              likedMessages[index] ? <FavoriteIcon/> : <FavoriteBorderIcon/>
+                            }
+                          </Button>
+                        </Box>
+                        <CardDescription>
+                          {jsonFile["target"]}
+                          
+                        </CardDescription>
+                        {/* <CardButton>Learn More</CardButton> */}
+                      </Stack>
+                    </CardContent>
+                  </CardContainer>
+                </Grid>
               </Box>
             ))
             }
