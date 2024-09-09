@@ -90,7 +90,7 @@ export default function Home() {
               
               icon={<TextsmsIcon />}
               title="Text to Fitness Exercises in Seconds"
-              subtitle="Ask for your subject and professor and our chat-bot will take it away!"
+              subtitle="Ask for your exercises and our chat-bot will take it away!"
             />
             <InfoCard
               icon={<DevicesIcon />}

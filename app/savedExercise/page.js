@@ -102,7 +102,7 @@ export default function ExercisesSaved() {
         list.push(doc.data())
       });
 
-      setexercises(list)
+      setExercises(list)
   
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data()
@@ -195,7 +195,7 @@ export default function ExercisesSaved() {
                             variant='contained'
                             color='error'
                             className='buttonColor'
-                            onClick={() => removeProfessor(val)}
+                            onClick={() => removeExercise(val)}
                           >
                             X
                           </Button>

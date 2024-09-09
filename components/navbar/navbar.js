@@ -15,6 +15,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import SaveIcon from '@mui/icons-material/Save';
+import FlameIcon from "../FlameIcon/FlameIcon";
 import '@/app/CSS/LandingPage.css'
 
 export default function NavBar(){
@@ -126,7 +127,7 @@ export default function NavBar(){
                   >
                     <Link href={"/"} style={{ flexGrow: 1 }}>
                       <Typography variant="h6">
-                        AStar Rate my Professor
+                        AStar Fitness
                       </Typography>
                     </Link>
                     <SignedOut>
@@ -190,7 +191,7 @@ export default function NavBar(){
               </Button>
             </SignedOut>
             <SignedIn>
-              
+              <FlameIcon />
               <UserButton />
             </SignedIn>
           </Toolbar>

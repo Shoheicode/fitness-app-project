@@ -84,11 +84,15 @@ const CardDescription = styled.p`
 
         if (!ranFirst) {
           console.log("I AM RUNNING INIHIHIHol")
+          console.log(text)
+          let string = text.substring(0, text.lastIndexOf("}")+1)
           //Right here, we have to figure out if the professors are saved in the firebase
+          console.log("I AM THIS STRING:")
+          console.log(string)
           let lis = [];
           console.log(text)
           ranFirst = true;
-          for (var i = 0; i < JSON.parse(text).data.length; i++) {
+          for (var i = 0; i < JSON.parse(string).data.length; i++) {
             try {
               console.log("HIHIHIIHI")
               
@@ -103,7 +107,7 @@ const CardDescription = styled.p`
                 const userData = userDocSnap.data();
                 if (
                   !userData.Exercises.includes(
-                    JSON.parse(text).data[i].exerciseName
+                    JSON.parse(string).data[i].exerciseName
                   )
                 ) {
                   lis.push(false);
@@ -125,8 +129,17 @@ const CardDescription = styled.p`
             }
           }
           setLikes(lis);
-          setFirstMessage(JSON.parse(text));
-          console.log(JSON.parse(text));
+          setFirstMessage(JSON.parse(string));
+          console.log(JSON.parse(string));
+          let stri = text.substring(text.lastIndexOf("}")+1, text.length)
+          setMessages((messages) => {
+            let lastMessage = messages[messages.length - 1];
+            let otherMessages = messages.slice(0, messages.length - 1);
+            return [
+              ...otherMessages,
+              { ...lastMessage, content: lastMessage.content + stri },
+            ];
+          });
         } else {
           setMessages((messages) => {
             let lastMessage = messages[messages.length - 1];
