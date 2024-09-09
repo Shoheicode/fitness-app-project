@@ -1,0 +1,5 @@
+#flame {
+    height: 32px;
+    transition: transform 0.15s ease-in-out;
+    cursor: pointer;
+}
