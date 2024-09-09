@@ -14,6 +14,7 @@ import { Folder, Help, Image } from "@mui/icons-material";
 import HelpIcon from '@mui/icons-material/Help';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import SaveIcon from '@mui/icons-material/Save';
 import '@/app/CSS/LandingPage.css'
 
 export default function NavBar(){
@@ -68,7 +69,7 @@ export default function NavBar(){
           <ListItem key={"Saved Exercises"} disablePadding>
             <ListItemButton href="/savedExercise">
               <ListItemIcon>
-                <SmartToyIcon></SmartToyIcon>
+                <SaveIcon></SaveIcon>
               </ListItemIcon>
               <Typography
                 className="apply"  
