@@ -8,8 +8,34 @@ import Fade from "@mui/material/Fade";
 import fireIcon from "@/public/flame.svg";
 import "./flameIcon.css";
 
+const popperStyles = {
+  marginTop: 1.5,
+  border: 1,
+  p: 1,
+  bgcolor: "background.paper",
+};
+
 export default function FlameIcon() {
   const { user } = useUser();
+  const [streakCount, setStreakCount] = useState(0);
+
+  useEffect(() => {
+    async function fetchAndUpdateStreak() {
+      fetch("/api/updateAndGetStreak", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userID: user.id,
+          offset: new Date().getTimezoneOffset(),
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => setStreakCount(data.streak));
+    }
+    fetchAndUpdateStreak();
+  }, [user.id]);
 
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,24 +53,6 @@ export default function FlameIcon() {
     setOpen(false);
   };
 
-  useEffect(() => {
-    async function fetchAndUpdateStreak() {
-      fetch("/api/updateAndGetStreak", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userID: user.id,
-          offset: new Date().getTimezoneOffset(),
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    }
-    fetchAndUpdateStreak();
-  }, []);
-
   return (
     <div>
       <Image
@@ -57,16 +65,7 @@ export default function FlameIcon() {
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
-            <Box
-              sx={{
-                marginTop: 1.5,
-                border: 1,
-                p: 1,
-                bgcolor: "background.paper",
-              }}
-            >
-              Your current streak: 1
-            </Box>
+            <Box sx={popperStyles}>Your current streak: {streakCount}</Box>
           </Fade>
         )}
       </Popper>
