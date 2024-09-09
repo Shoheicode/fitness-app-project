@@ -15,7 +15,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import SaveIcon from '@mui/icons-material/Save';
-import FlameIcon from "../flameIcon/flameIcon";
+import FlameIcon from "../FlameIcon/FlameIcon";
 import '@/app/CSS/LandingPage.css'
 
 export default function NavBar(){
