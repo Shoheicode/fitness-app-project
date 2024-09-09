@@ -134,6 +134,9 @@ const CardDescription = styled.p`
           if(text.indexOf("{" != -1)){
             let string = text.substring(text.lastIndexOf("}")+1, text.length)
             setMessages(string);
+            console.log(string)
+            done = true;
+
           }
           setMessages((messages) => {
             let lastMessage = messages[messages.length - 1];
