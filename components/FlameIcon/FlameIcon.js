@@ -75,9 +75,9 @@ export default function FlameIcon() {
                 // calculate streak and return it
                 streak = userData.streak;
                 if (start <= currentUserTime && currentUserTime <= end) {
-                streak += 1;
+                    streak += 1;
                 } else if (currentUserTime > end) {
-                streak = 0;
+                    streak = 0;
                 }
         
                 batch.update(userDocRef, {
@@ -90,9 +90,11 @@ export default function FlameIcon() {
                 lastLoggedIn: new Date().toUTCString(),
                 });
             }
+            setStreakCount(streak);
         
             await batch.commit();
         }
+        getData();
     })
 
   const [open, setOpen] = useState(false);
