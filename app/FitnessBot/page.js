@@ -13,7 +13,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: `Hi! I'm the AStar Fitness support assistant. How can I help you today?`,
+      content: `Hi! I'm the Fitness Chat Bot. How can I help you today?`,
     },
   ]);
   const { isLoaded, isSignedIn, user } = useUser()
@@ -273,9 +273,10 @@ export default function Home() {
         min-width="100vw"
         min-height="100vh"
         display="flex"
-        flexDirection="row"
+        flexDirection="column"
         justifyContent="space-around"
         alignItems="center"
+        paddingTop={10}
         
       >
         <Stack
