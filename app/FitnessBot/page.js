@@ -155,7 +155,6 @@ export default function Home() {
                   lis.push(true);
                 }
               } else {
-                console.log("I AM DOING THE WRITIng")
                 await setDoc(doc(database, "users", user.id), {
                   Exercises: []
                 });
@@ -163,9 +162,9 @@ export default function Home() {
                 lis = [false, false, false];
               }
             } catch (error) {
-              console.error("Error saving professors:", error);
+              console.error("Error saving exercises:", error);
               alert(
-                "An error occurred while saving professors. Please try again."
+                "An error occurred while saving exercises. Please try again."
               );
             }
           }
@@ -200,7 +199,7 @@ export default function Home() {
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data()
         if (!userData.Exercises.includes(exercise['exerciseName'])){
-          console.log("HIHIHI AM RUNNING HHOHOHOHO")
+          //console.log("HIHIHI AM RUNNING HHOHOHOHO")
           const updatedSets = [...(userData.Exercises || []), exercise['exerciseName'] ]
           batch.update(userDocRef, { Exercises: updatedSets })
         }
@@ -213,13 +212,11 @@ export default function Home() {
       await setDoc(setDocRef, exercise)
   
       await batch.commit()
-  
-      alert('Professors saved successfully!')
       //handleCloseDialog()
 
     } catch (error) {
-      console.error('Error saving professors:', error)
-      alert('An error occurred while saving professors. Please try again.')
+      console.error('Error saving exercises:', error)
+      alert('An error occurred while saving exercises. Please try again.')
     }
 
   };
