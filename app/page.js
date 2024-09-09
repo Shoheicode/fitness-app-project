@@ -18,7 +18,7 @@ export default function Home() {
 
   const sendPerson = () =>{
     if(isSignedIn){
-      router.push(`/ChatBot`)
+      router.push(`/FitnessBot`)
     }else{
       router.push("/sign-in")
     }
