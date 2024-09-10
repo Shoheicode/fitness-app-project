@@ -54,5 +54,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-- Hello
+- [IanWearsHat](https://github.com/IanWearsHat)
+- [ayoola135790](https://github.com/ayoola135790)
 
