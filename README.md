@@ -54,6 +54,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-[![All Contributors](https://img.shields.io/github/all-contributors/projectOwner/projectName?color=ee8449&style=flat-square)](#contributors)
-![GitHub contributors](https://img.shields.io/github/:metric/https%3A%2F%2Fgithub.com%2FIanWearsHat/https%3A%2F%2Fgithub.com%2FShoheicode%2Ffitness-app-project)
 
