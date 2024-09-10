@@ -4,7 +4,7 @@
 ## Table of Contents:
 - [Project Description](#description)
 - [Project Features](#features)
-- [Project Languages](#project-lanugaes)
+- [Project Languages](#project-languages)
 - [Setup](#getting-started)
 - [Contributors](#contributors)
 
