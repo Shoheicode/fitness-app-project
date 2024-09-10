@@ -19,6 +19,12 @@ AStar Fitness is an intelligent fitness application designed to revolutionize ho
 4. Exercise Recommendations: By utilizing machine learning, the app offers smarter exercise recommendations as the user’s fitness journey evolves. This ensures that the routines stay engaging, challenging, and efficient.
 
 ## Project Languages/Tools
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
 ## Getting Started
 
