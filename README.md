@@ -54,3 +54,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+[![All Contributors](https://img.shields.io/github/all-contributors/projectOwner/projectName?color=ee8449&style=flat-square)](#contributors)
