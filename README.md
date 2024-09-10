@@ -6,10 +6,9 @@ AStar Fitness is an intelligent fitness application designed to revolutionize ho
 
 ## Table of Contents:
 - [Project Description](#getting-started)
-- [Project Obstacles](#obstacles)
-- [Test Cases](#test-cases)
-- [Pseudocode](#pseudocode)
-
+- [Project Features](#)
+- [Probject Language]()
+- [Contributors](#Contributors)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
