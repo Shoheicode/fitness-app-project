@@ -2,7 +2,7 @@
 
 # AStar Fitness App
 
-A brief description of what this project does and who it's for
+AStar Fitness is an intelligent fitness application designed to revolutionize how users achieve their health and fitness goals. Leveraging the power of Artificial Intelligence, the app generates personalized workout routines based on each user’s fitness level, preferences, and progress. Whether you're a beginner or an advanced athlete, AStar Fitness adapts to your needs, crafting exercise programs that evolve as you do.
 
 
 
