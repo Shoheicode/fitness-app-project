@@ -46,8 +46,8 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## Contributors
-[![Harsh Vijay](https://avatars1.githubusercontent.com/u/12688534?v=3&s=144)](https://github.com/iharsh234)  | [![Quandl.com](https://github.com/iharsh234/WebApp/blob/master/images/quandl.jpg)](https://www.quandl.com/)
----|---
+[![Harsh Vijay]()](https://github.com/iharsh234)  | [![Quandl.com]()](https://www.quandl.com/) | [![ShoheiCode]()](https://portfoliowebsite-36391.web.app/)
+---|---|---
 [IanWearsHat](https://github.com/IanWearsHat) | [ayoola](https://github.com/ayoola135790) | [ShoheiCode](https://github.com/Shoheicode)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
