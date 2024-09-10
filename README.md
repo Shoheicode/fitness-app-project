@@ -1,5 +1,3 @@
-
-
 # AStar Fitness App
 ## Table of Contents:
 - [Project Description](#description)
@@ -46,7 +44,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## Contributors
-[![IanWearsHat]()](https://github.com/iharsh234)  | [![ayoola135790]()](https://www.quandl.com/) | [![ShoheiCode]()](https://portfoliowebsite-36391.web.app/)
+[![IanWearsHat]()](https://github.com/iharsh234)  | [![ayoola135790]()](https://www.quandl.com/) | [![ShoheiCode](https://github.com/user-attachments/assets/9201f055-0e10-4723-93c7-9818a769f111)](https://portfoliowebsite-36391.web.app/)
 ---|---|---
 [IanWearsHat](https://github.com/IanWearsHat) | [ayoola135790](https://github.com/ayoola135790) | [ShoheiCode](https://github.com/Shoheicode)
 
