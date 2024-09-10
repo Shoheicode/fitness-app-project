@@ -56,4 +56,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 - [IanWearsHat](https://github.com/IanWearsHat)
 - [ayoola135790](https://github.com/ayoola135790)
+- [ShoheiCode](https://github.com/Shoheicode)
 
