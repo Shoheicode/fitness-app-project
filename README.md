@@ -3,8 +3,8 @@
 # AStar Fitness App
 ## Table of Contents:
 - [Project Description](#description)
-- [Project Features](#)
-- [Probject Language]()
+- [Project Features](#features)
+- [Project Languages](#project-lanugaes)
 - [Setup](#getting-started)
 - [Contributors](#contributors)
 
