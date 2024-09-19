@@ -6,12 +6,7 @@ import { Box, Button, Stack, TextField } from "@mui/material";
 import { useState, Fragment } from "react";
 
 export default function Home() {
-  const [messages, setMessages] = useState([
-    {
-      role: "assistant",
-      content: `Hi! I'm the Rate My Professor support assistant. How can I help you today?`,
-    },
-  ]);
+
   const [message, setMessage] = useState("");
   const [firstMessage, setFirstMessage] = useState("");
   let ranFirst = false;
