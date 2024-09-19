@@ -6,11 +6,6 @@ import { Box, Button, Stack, TextField } from "@mui/material";
 import { useState, Fragment } from "react";
 
 export default function Home() {
-
-  const [message, setMessage] = useState("");
-  const [firstMessage, setFirstMessage] = useState("");
-  let ranFirst = false;
-
   return (
     <Box>
         <NavBar />
