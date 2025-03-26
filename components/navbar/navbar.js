@@ -179,7 +179,7 @@ export default function NavBar(){
                 variant="h6"
                 className="apply"  
               >
-                AStar Rate my Professor
+                AStar Fitness
               </Typography>
             </Link>
             <SignedOut>
