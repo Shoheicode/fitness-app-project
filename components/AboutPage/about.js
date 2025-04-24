@@ -18,7 +18,7 @@ const CoolAboutPage = () => {
       <Head>
         <title>About Us - AStar</title>
         <meta name="description" content="Discover the innovation behind AStar" />
-        <link rel="icon" href="/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
 
       <header>
