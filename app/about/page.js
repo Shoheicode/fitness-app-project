@@ -16,6 +16,7 @@ export default function About() {
           justifyContent="center"
           alignItems="center"
         >
+          {/* Creates the cool about page */}
           <About/>
       </Box>
     </Box>
