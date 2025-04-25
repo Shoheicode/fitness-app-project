@@ -29,7 +29,7 @@ export default function Home() {
       <Head>
         {/* This is the name/head of the page */}
         <title>AStar Fitness</title>
-        <meta name="description" content="AStar Rate my Professor" />
+        <meta name="description" content="AStar Fitness" />
       </Head>
 
       <NavBar />
