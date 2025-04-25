@@ -66,7 +66,6 @@ export default function Home() {
         </Box>
 
         <Box 
-          // sx={{ my: 6 }}
           sx={
             {
               background: 'linear-gradient(70deg, rgba(255,77,0,1) 0%, rgba(255,249,2,1) 100%)',
