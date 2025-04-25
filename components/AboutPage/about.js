@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { motion } from 'framer-motion';
 import './style.css'
 
-const CoolAboutPage = () => {
+const AboutPage = () => {
   const [greeting, setGreeting] = useState('');
 
   useEffect(() => {
@@ -68,4 +68,4 @@ const CoolAboutPage = () => {
   );
 };
 
-export default CoolAboutPage;
+export default AboutPage;
