@@ -28,7 +28,7 @@ export default function Home() {
     <Box>
       <Head>
         {/* This is the name/head of the page */}
-        <title>AStar Rate my Professor</title>
+        <title>AStar Fitness</title>
         <meta name="description" content="AStar Rate my Professor" />
       </Head>
 
